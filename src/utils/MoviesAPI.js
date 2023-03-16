@@ -7,7 +7,7 @@ const agent = axios.create({
 
 export async function getTrendingMovies() {
   try {
-    const movies = await agent.get('trending/all/day');
+    const movies = await agent.get('trending/movie/day');
 
     return movies.data.results;
   } catch (error) {

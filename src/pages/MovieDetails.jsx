@@ -4,6 +4,7 @@ import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getMoviesDetails } from 'utils/MoviesAPI';
 import defaultImg from '../images/movie-pic.jpg';
 import { Button, Wrap, WrapBtn } from './MovieDetails.styled';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w300/';
 
@@ -28,6 +29,7 @@ const MovieDetails = () => {
   return (
     <div>
       <Button type="button" onClick={handelGoBack}>
+        <FaArrowLeft />
         Go back
       </Button>
       <Wrap>

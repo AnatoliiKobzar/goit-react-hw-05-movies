@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container, Header, Link } from './Navigation.styled';
 
-export const Navigaion = () => {
+const Navigaion = () => {
   return (
     <Container>
       <Header>
@@ -17,3 +17,5 @@ export const Navigaion = () => {
     </Container>
   );
 };
+
+export default Navigaion;

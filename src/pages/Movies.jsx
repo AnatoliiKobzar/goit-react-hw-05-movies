@@ -1,8 +1,10 @@
 import { Loader } from 'components/Loader/Loader';
-import { MoviesList } from 'components/MovieList/MovieList';
+import MoviesList from 'components/MovieList/MovieList';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getMoviesByQuery } from 'utils/MoviesAPI';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -17,7 +19,14 @@ const Movies = () => {
     }
     setLoading(true);
     getMoviesByQuery(query)
-      .then(setMovies)
+      .then(movies => {
+        if (movies.length === 0) {
+          toast.warning('Nothing found for your request!', {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
+        return setMovies(movies);
+      })
       .finally(() => {
         setLoading(false);
       });
@@ -42,6 +51,7 @@ const Movies = () => {
         <button type="submit">Search</button>
       </form>
       {loading ? <Loader /> : <MoviesList movies={movies} />}
+      <ToastContainer />
     </div>
   );
 };

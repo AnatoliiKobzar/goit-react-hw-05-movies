@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMoviesCredits } from 'utils/MoviesAPI';
+import { CatsImg, CatsList } from './Cats.styled';
+import DefaultImg from '../../images/cast-img.jpg';
 
-const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w200/';
+const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w400/';
 
-export const Cast = () => {
+const Cast = () => {
   const [cast, setCast] = useState([]);
   const { movieId } = useParams();
 
@@ -15,19 +17,25 @@ export const Cast = () => {
   return (
     <div>
       <h2>Cast</h2>
-      <ul>
+      <CatsList>
         {cast.map(actor => {
           return (
             <li key={actor.cast_id}>
-              <img
-                src={BASE_IMG_URL + actor.profile_path}
+              <CatsImg
+                src={
+                  actor.profile_path
+                    ? BASE_IMG_URL + actor.profile_path
+                    : DefaultImg
+                }
                 alt={actor.original_name}
               />
-              <h2>{actor.original_name}</h2>
+              <h3>{actor.original_name}</h3>
             </li>
           );
         })}
-      </ul>
+      </CatsList>
     </div>
   );
 };
+
+export default Cast;

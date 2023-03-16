@@ -4,7 +4,7 @@ import defaultImg from '../../images/movie-pic.jpg';
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w300/';
 
-export const MoviesList = ({ movies }) => {
+const MoviesList = ({ movies }) => {
   const location = useLocation();
 
   return (
@@ -27,3 +27,5 @@ export const MoviesList = ({ movies }) => {
     </List>
   );
 };
+
+export default MoviesList;
