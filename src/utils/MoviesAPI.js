@@ -43,7 +43,7 @@ export async function getMoviesCredits(id) {
   try {
     const credits = await agent.get(`movie/${id}/credits`);
 
-    return credits.data.results;
+    return credits.data.cast;
   } catch (error) {
     console.error(error);
   }

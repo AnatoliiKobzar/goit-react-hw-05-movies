@@ -1,3 +1,4 @@
+import { Loader } from 'components/Loader/Loader';
 import { MoviesList } from 'components/MovieList/MovieList';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -5,15 +6,21 @@ import { getMoviesByQuery } from 'utils/MoviesAPI';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [params, setParams] = useSearchParams();
   const query = params.get('query');
+  const [value, setValue] = useState(query ?? '');
 
   useEffect(() => {
     if (!query) {
       return;
     }
-
-    getMoviesByQuery(query).then(setMovies);
+    setLoading(true);
+    getMoviesByQuery(query)
+      .then(setMovies)
+      .finally(() => {
+        setLoading(false);
+      });
   }, [query]);
 
   const handleSubmit = event => {
@@ -24,10 +31,17 @@ const Movies = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="query" />
+        <input
+          type="text"
+          name="query"
+          value={value}
+          onChange={event => {
+            setValue(event.target.value);
+          }}
+        />{' '}
         <button type="submit">Search</button>
       </form>
-      <MoviesList movies={movies} />
+      {loading ? <Loader /> : <MoviesList movies={movies} />}
     </div>
   );
 };
